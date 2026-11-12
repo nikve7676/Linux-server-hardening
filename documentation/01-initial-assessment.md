@@ -50,13 +50,28 @@ Command:
 
 Purpose: Check whether the SSH service is installed and running.
 
-Command:
+Result:
 
-`dpkg -l openssh-server`
+- SSH Server: Installed
+- SSH Service: Inactive (dead)
+- Service startup: Disabled
+- SSH socket: Configured (status not yet verified)
 
-Purpose: Check the installation status of the OpenSSH Server package.
+Explanation:
 
-Result: Pending verification.
+The SSH server is installed, but the SSH service is currently inactive.
+
+The system shows that SSH can be activated through ssh.socket. However, we still need to check whether the socket is active.
+
+Security observation:
+
+SSH security settings have not been verified or hardened yet.
+
+Next step:
+
+Check the SSH socket status using:
+
+`systemctl status ssh.socket`
 
 ## 6. SSH Server Installation
 
