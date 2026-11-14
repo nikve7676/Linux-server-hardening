@@ -22,7 +22,7 @@ apt list --upgradable
 - `apt update` refreshes package information; it does **not** install upgrades.
 - `apt list --upgradable` lists packages with available updates.
 
-**Observed result:** An earlier `sudo apt update` encountered `Release file ... is not valid yet` for the `resolute-security`, `resolute-updates`, and `resolute-backports` repositories. This means the update check did not successfully refresh all repositories. VM clock or repository timestamp alignment needs attention. The user later reported completing the suggested time checks, but their outputs and a successful new `apt update` have not been shared. Do not bypass APT date checks.
+**Observed result:** An earlier `sudo apt update` encountered `Release file ... is not valid yet` for the `resolute-security`, `resolute-updates`, and `resolute-backports` repositories. This means the update check did not successfully refresh all repositories. VM clock or repository timestamp alignment needs attention. The user subsequently reported all final checks working. A successful `apt update` transcript has not been shared, so the earlier error is documented rather than claimed independently resolved. Do not bypass APT date checks.
 
 ## 4. Installing Available Upgrades
 
@@ -38,7 +38,7 @@ Then check again:
 apt list --upgradable
 ```
 
-**Status:** Upgrade installation not yet confirmed.
+**Status:** User reports final checks work. Whether `sudo apt upgrade` installed packages, and the resulting package counts, have not been documented.
 
 ## 5. Reboot Check
 
@@ -48,7 +48,7 @@ if [ -f /var/run/reboot-required ]; then echo "Reboot required"; else echo "No r
 
 If a reboot is required, save work, keep UTM console access available, and reboot at a suitable point.
 
-**Status:** Not yet verified.
+**Status:** Reboot check output has not been documented.
 
 ## 6. Final Security Audit
 
@@ -72,16 +72,16 @@ The VM address may change.
 
 ## 7. Verification Checklist
 
-- [ ] Confirm `sudo apt update` now succeeds without future-dated release-file errors
+- [x] Recheck package update command (user-confirmed working; output not archived)
 - [ ] Record installed package upgrade results
 - [ ] Verify whether a reboot is needed and complete it if necessary
-- [ ] Confirm SSH config syntax passes
-- [ ] Confirm effective SSH settings disable password, keyboard-interactive and root SSH login
-- [ ] Confirm key-based SSH login from macOS still works
-- [ ] Confirm UFW is active and SSH port permitted
-- [ ] Confirm Fail2ban `sshd` jail is active with intended values
+- [x] Check SSH config syntax (user-confirmed)
+- [x] Check effective SSH authentication settings (user-confirmed)
+- [x] Check key-based SSH login from macOS (user-confirmed)
+- [x] Check UFW and SSH access (user-confirmed)
+- [x] Check Fail2ban SSH jail (user-confirmed)
 - [ ] Review user, sudo and sensitive file permissions
 
 ## 8. Conclusion
 
-The security update check was performed, but the observed repository timestamp error means update success is not yet confirmed. The final hardening audit is **in progress**, not yet verified complete. Results will be updated when terminal outputs are available.
+The operator reports that all final commands work. SSH, firewall, and Fail2ban checks are therefore marked **user-confirmed**. The project implementation is reported complete, while raw terminal evidence, package upgrade details, reboot status, and a full user/sudo audit remain to be documented before calling the audit independently verified.
