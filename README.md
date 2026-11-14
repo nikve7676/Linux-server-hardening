@@ -4,7 +4,7 @@
 
 A practical project to configure and assess common security controls on an Ubuntu virtual machine. I built the lab on an Apple M2 Mac using UTM, connected to the VM through SSH, configured access controls, and documented the checks and troubleshooting.
 
-> **Project status:** The core hardening steps are reported working and several results are recorded. A complete evidence-backed final audit (screenshots, user/sudo review, listening ports, and update/reboot confirmation) is still being assembled. This is a learning lab, not a certified secure production system.
+> **Project status:** The core hardening steps are reported working and several results are recorded. Terminal screenshots for SSH, UFW, Fail2ban, sudo-group membership and listening ports have been reviewed and transcribed. The cleaned PNGs have not yet been committed; update/reboot and full privilege evidence remain outstanding. This is a learning lab, not a certified secure production system.
 
 ## 1. Lab architecture
 
@@ -28,10 +28,10 @@ flowchart TD
 
 | Risk | Mitigation | Evidence status |
 | --- | --- | --- |
-| SSH password guessing | Ed25519 key-based SSH; password authentication restriction | User-confirmed; output to archive |
-| Direct root remote access | Root SSH login restriction | User-confirmed; output to archive |
-| Unnecessary incoming traffic | UFW default incoming policy and SSH allow rule | User-confirmed; output to archive |
-| Repeated authentication failures | Fail2ban SSH jail | Configuration test and 3600-second ban time observed |
+| SSH password guessing | Public-key SSH enabled, password/keyboard-interactive authentication disabled | Effective daemon settings observed in screenshot |
+| Direct root remote access | Root SSH login restriction | `permitrootlogin no` observed |
+| Unnecessary incoming traffic | UFW default-deny incoming; SSH 22 allowed | Active firewall rules observed |
+| Repeated authentication failures | Fail2ban SSH jail | Jail status observed; configuration test and 3600-second ban time recorded |
 | Overly broad file access | Restricted permissions for a test file and private SSH key | Permission results observed |
 | Unpatched packages | APT update and upgrade workflow | Latest check user-confirmed; upgrade details pending |
 
@@ -47,7 +47,7 @@ flowchart TD
 ### UFW firewall
 
 - Practiced default-deny incoming rules while preserving SSH access.
-- Verified the firewall workflow from the UTM lab (user-confirmed).
+- Captured an active UFW firewall with `deny (incoming)`, `allow (outgoing)`, and SSH port 22 permitted on IPv4/IPv6.
 
 ### Fail2ban
 
@@ -82,8 +82,9 @@ bantime = 1h
 - [x] Configure Fail2ban; verify config syntax and 1-hour ban time
 - [x] Perform package update checks (user-confirmed)
 - [x] Create comparison and final audit documentation
-- [ ] Add sanitized screenshots / terminal transcripts for the final controls
-- [ ] Record full user/`sudo` audit and listening sockets
+- [x] Review SSH, UFW, Fail2ban, sudo-group and socket screenshots; document observed results
+- [ ] Commit sanitized screenshots (cropped files were provided separately, but not uploaded to the repository)
+- [ ] Finish the full user/`sudo` audit and assess the observed listening sockets
 - [ ] Record whether upgrades and reboot were necessary and completed
 
 ## 5. Documentation
@@ -99,6 +100,7 @@ bantime = 1h
 | [07 — Before and after](documentation/07-before-after-comparison.md) | Security-control comparison |
 | [08 — Final audit](documentation/08-final-security-audit.md) | Evidence register and remaining checks |
 | [Evidence guide](evidence/README.md) | Safe screenshot collection |
+| [Observed terminal results](evidence/observed-terminal-results.md) | Real screenshot observations and key findings |
 
 ## 6. Troubleshooting and lessons learned
 
@@ -113,10 +115,10 @@ bantime = 1h
 ## 7. Security and scope notes
 
 - This lab uses an isolated virtual machine; it does not claim enterprise-grade assurance.
-- The operator reported final checks successful, but some raw outputs are not archived yet.
+- The operator reported final checks successful, but screenshot observations are recorded in text, but the PNG files and some other raw outputs are not archived yet.
 - No private SSH keys, passphrases, tokens or passwords belong in the repository.
 - Examples and intended configurations must not be mistaken for independent evidence of running state.
 
 ## 8. Next improvements
 
-Complete the [final audit](documentation/08-final-security-audit.md), add sanitized real evidence to `evidence/`, document an account/sudo review and listening services, and record the outcome of package upgrades and any reboot.
+Complete the [final audit](documentation/08-final-security-audit.md), add the prepared cropped PNGs to `evidence/`, finish the account/sudo review and follow up on listening services, and record the outcome of package upgrades and any reboot.
