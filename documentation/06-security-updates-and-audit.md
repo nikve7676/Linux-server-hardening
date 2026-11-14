@@ -22,7 +22,7 @@ apt list --upgradable
 - `apt update` refreshes package information; it does **not** install upgrades.
 - `apt list --upgradable` lists packages with available updates.
 
-**Status:** Commands reported completed. Terminal outputs and the number of upgradable packages have not been provided.
+**Observed result:** An earlier `sudo apt update` encountered `Release file ... is not valid yet` for the `resolute-security`, `resolute-updates`, and `resolute-backports` repositories. This means the update check did not successfully refresh all repositories. VM clock or repository timestamp alignment needs attention. The user later reported completing the suggested time checks, but their outputs and a successful new `apt update` have not been shared. Do not bypass APT date checks.
 
 ## 4. Installing Available Upgrades
 
@@ -72,6 +72,7 @@ The VM address may change.
 
 ## 7. Verification Checklist
 
+- [ ] Confirm `sudo apt update` now succeeds without future-dated release-file errors
 - [ ] Record installed package upgrade results
 - [ ] Verify whether a reboot is needed and complete it if necessary
 - [ ] Confirm SSH config syntax passes
@@ -83,4 +84,4 @@ The VM address may change.
 
 ## 8. Conclusion
 
-The security update check was performed as reported. The final hardening audit is **in progress**, not yet verified complete. Results will be updated when terminal outputs are available.
+The security update check was performed, but the observed repository timestamp error means update success is not yet confirmed. The final hardening audit is **in progress**, not yet verified complete. Results will be updated when terminal outputs are available.
