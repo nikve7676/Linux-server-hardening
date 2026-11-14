@@ -32,10 +32,10 @@ This project documents my hands-on practice securing an Ubuntu Linux virtual mac
 - [ ] Verify SSH password and direct root login are disabled, and confirm remote access still works.
 - [ ] Audit Linux users, sudo permissions and sensitive-file permissions.
 - [ ] Verify UFW rules and successful SSH access after enabling the firewall (user reports UFW stage performed).
-- [x] Install and configure Fail2ban (user-reported; runtime verification pending).
-- [ ] Verify Fail2ban SSH jail status, settings and continued SSH access.
+- [x] Configure Fail2ban and confirm configuration test passes and SSH jail ban time is 3600 seconds.
+- [ ] Capture full Fail2ban SSH jail status, maxretry/findtime values, and continued SSH access (additional checks reported completed; outputs not reviewed).
 - [x] Check package update availability with `apt update` and `apt list --upgradable` (user-reported; output not yet reviewed).
-- [ ] Install any available upgrades and complete the final security audit.
+- [ ] Resolve/verify APT repository timestamp issue and confirm available upgrades are installed, then complete final audit.
 
 ## Documentation
 
