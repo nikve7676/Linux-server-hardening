@@ -59,7 +59,7 @@ Add the Mac's public key to the Ubuntu user's authorized keys.
 
 The `authorized_keys` file contains public keys permitted to authenticate to the user account.
 
-Result: Pending verification.
+Result: User reports this step completed successfully; terminal output has not been archived.
 
 ## 6. Test SSH Key Authentication
 
@@ -86,7 +86,7 @@ Planned security improvements:
 - Check SSH server configuration.
 - Verify that remote access continues working.
 
-Status: Not yet completed.
+Status: User confirms SSH hardening and final checks work. The exact effective settings output and a successful new key-only login transcript are not archived.
 
 ## 8. Security Benefits
 
@@ -98,7 +98,5 @@ Disabling direct root login limits direct access to the administrative account.
 
 ## 9. Next Steps
 
-- Verify SSH key authentication.
-- Configure SSH authentication restrictions.
-- Test the final configuration.
-- Document the results.
+- Save the effective `sshd -T` settings and a key-only connection result as evidence.
+- Preserve a UTM console recovery path when changing authentication settings.
