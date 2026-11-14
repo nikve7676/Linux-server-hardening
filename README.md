@@ -10,14 +10,16 @@ A practical project to configure and assess common security controls on an Ubunt
 
 ```mermaid
 flowchart TD
-    A["macOS · Apple M2\nSSH client / private key"] -->|"SSH over UTM private network"| B["Ubuntu 26.04.1 LTS · ARM64"]
-    subgraph B["Ubuntu 26.04.1 LTS · ARM64"]
-      C["OpenSSH\nKey-based authentication"]
-      D["UFW\nIncoming firewall rules"]
-      E["Fail2ban\nsshd jail"]
-      F["APT\nPackage maintenance"]
-      G["Linux users and permissions"]
+    A["macOS - Apple M2 / SSH client"] -->|"SSH over UTM private network"| C
+    subgraph VM["Ubuntu 26.04.1 LTS - ARM64 on UTM"]
+      C["OpenSSH - Key authentication"]
+      D["UFW - Firewall"]
+      E["Fail2ban - SSH jail"]
+      F["APT - Updates"]
+      G["Users and permissions"]
     end
+    D --> C
+    E -. monitors .-> C
 ```
 
 **Environment:** macOS on Apple M2; UTM virtual machine; Ubuntu 26.04.1 LTS (ARM64/aarch64). A lab IP of `192.168.64.3` was observed but may change.
