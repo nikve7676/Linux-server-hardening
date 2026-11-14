@@ -32,7 +32,8 @@ This project documents my hands-on practice securing an Ubuntu Linux virtual mac
 - [ ] Verify SSH password and direct root login are disabled, and confirm remote access still works.
 - [ ] Audit Linux users, sudo permissions and sensitive-file permissions.
 - [ ] Verify UFW rules and successful SSH access after enabling the firewall (user reports UFW stage performed).
-- [ ] Install, configure and verify Fail2ban.
+- [x] Install and configure Fail2ban (user-reported; runtime verification pending).
+- [ ] Verify Fail2ban SSH jail status, settings and continued SSH access.
 - [ ] Apply and verify security updates and complete final audit.
 
 ## Documentation
@@ -41,6 +42,7 @@ This project documents my hands-on practice securing an Ubuntu Linux virtual mac
 - [File permissions practice](documentation/02-linux-permissions.md)
 - [SSH hardening](documentation/03-ssh-hardening.md)
 - [UFW firewall](documentation/04-ufw-firewall.md)
+- [Fail2ban SSH protection](documentation/05-fail2ban.md)
 
 ## Verification policy
 
