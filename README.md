@@ -34,7 +34,8 @@ This project documents my hands-on practice securing an Ubuntu Linux virtual mac
 - [ ] Verify UFW rules and successful SSH access after enabling the firewall (user reports UFW stage performed).
 - [x] Install and configure Fail2ban (user-reported; runtime verification pending).
 - [ ] Verify Fail2ban SSH jail status, settings and continued SSH access.
-- [ ] Apply and verify security updates and complete final audit.
+- [x] Check package update availability with `apt update` and `apt list --upgradable` (user-reported; output not yet reviewed).
+- [ ] Install any available upgrades and complete the final security audit.
 
 ## Documentation
 
@@ -43,6 +44,7 @@ This project documents my hands-on practice securing an Ubuntu Linux virtual mac
 - [SSH hardening](documentation/03-ssh-hardening.md)
 - [UFW firewall](documentation/04-ufw-firewall.md)
 - [Fail2ban SSH protection](documentation/05-fail2ban.md)
+- [Security updates and final audit](documentation/06-security-updates-and-audit.md)
 
 ## Verification policy
 
