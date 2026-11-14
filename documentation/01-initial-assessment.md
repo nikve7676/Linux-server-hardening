@@ -2,91 +2,75 @@
 
 ## 1. Environment
 
-This project uses an Ubuntu virtual machine running in UTM on an Apple M2 Mac.
-
-The purpose of this stage is to identify the initial server configuration before applying security improvements.
+Ubuntu runs in UTM on an Apple M2 Mac. This assessment records observations made before or during hardening.
 
 ## 2. Operating System Identification
 
-Command:
+Command: `cat /etc/os-release`
 
-`cat /etc/os-release`
+Observed from the Ubuntu SSH login banner:
+- Ubuntu 26.04.1 LTS
+- Architecture: aarch64 (ARM64)
 
-Purpose: Identify the Ubuntu version and operating system information.
-
-Result: Pending verification.
+The exact output of `cat /etc/os-release` has not been saved here.
 
 ## 3. User Identification
 
-Command:
+Commands:
+- `whoami` — show current username
+- `id` — show UID, primary GID and group memberships
 
-`whoami`
+Observed username from terminal prompt and SSH test: `nikoo`.
 
-Purpose: Identify the currently logged-in Linux user.
-
-Command:
-
-`id`
-
-Purpose: Display the user's UID, GID and group memberships.
-
-Result: Pending verification.
+The full `id` output is still pending documentation.
 
 ## 4. Network Configuration
 
-Command:
+Command: `ip -br addr`
 
-`ip -br addr`
+Observed:
+```text
+lo       UNKNOWN 127.0.0.1/8 ::1/128
+enp0s1   UP      192.168.64.3/24 fd1e:784f:5bb0:41e1:51:42ff:feb0:e06c/64 fe80::51:42ff:feb0:e06c/64
+```
 
-Purpose: Display the network interfaces and their IP addresses in a brief format.
-
-Result: Pending verification.
+The VM's private IPv4 address was `192.168.64.3` when tested. It can change.
 
 ## 5. SSH Server Assessment
 
-Command:
+Command: `systemctl status ssh`
 
-`systemctl status ssh`
+Initial observed output:
+```text
+Loaded: loaded (...; disabled; preset: enabled)
+Active: inactive (dead)
+TriggeredBy: ssh.socket
+```
 
-Purpose: Check whether the SSH service is installed and running.
+Interpretation:
+- An SSH service unit was installed.
+- The service was not running at that moment.
+- Socket activation was configured; a separate socket status result was not recorded.
 
-Result:
+Subsequent test: Connecting to `nikoo@192.168.64.3` succeeded using password authentication. Remote SSH from macOS was also reported successful, confirming that SSH access was available.
 
-- SSH Server: Installed
-- SSH Service: Inactive (dead)
-- Service startup: Disabled
-- SSH socket: Configured (status not yet verified)
-
-Explanation:
-
-The SSH server is installed, but the SSH service is currently inactive.
-
-The system shows that SSH can be activated through ssh.socket. However, we still need to check whether the socket is active.
-
-Security observation:
-
-SSH security settings have not been verified or hardened yet.
-
-Next step:
-
-Check the SSH socket status using:
-
-`systemctl status ssh.socket`
+The hardened SSH authentication settings have not yet been independently verified in this documentation.
 
 ## 6. SSH Server Installation
 
-If OpenSSH Server is missing, it can be installed using:
+OpenSSH Server was already installed; no additional installation was needed for the initial SSH test.
 
-`sudo apt update`
+If absent, it could be installed with:
+```bash
+sudo apt update
+sudo apt install openssh-server
+```
 
-`sudo apt install openssh-server`
-
-Installation status: Not yet confirmed.
+These are instructions, not a claim that both commands were run.
 
 ## 7. Next Steps
 
-- Verify the initial system configuration.
-- Verify SSH installation and service status.
-- Configure SSH key authentication.
-- Disable direct root SSH login.
-- Test secure remote access.
+- Verify public-key-only SSH access and effective SSH restrictions.
+- Confirm UFW status and rules.
+- Review sudo and account permissions.
+- Configure Fail2ban, apply updates and run a final audit.
