@@ -35,17 +35,15 @@ sudo ufw status verbose
 
 I reported completing the UFW stage.
 
-**Verification pending:** The output of `sudo ufw status verbose` and a fresh SSH connection test after enabling the firewall have not yet been added to this repository.
-
-Do not treat the example rules above as confirmed live settings until they are checked.
+**User confirmation:** The firewall and final security checks work, including continued access. The live `sudo ufw status verbose` output has not been archived; the rules shown above remain the intended configuration.
 
 ## 5. Verification Checklist
 
-- [ ] Capture `sudo ufw status verbose` showing `Status: active`
-- [ ] Confirm the expected default incoming and outgoing policies
-- [ ] Confirm the rule allowing the actual SSH port
-- [ ] From macOS, establish a fresh SSH connection to Ubuntu after firewall activation
-- [ ] Record any differences between the intended and actual rules
+- [ ] Archive `sudo ufw status verbose` output showing `Status: active`
+- [x] Check expected default policies (user-confirmed)
+- [x] Check SSH allow rule (user-confirmed)
+- [x] Check SSH access after firewall activation (user-confirmed)
+- [ ] Record full actual rules to compare with intended configuration
 
 ## 6. Security Benefit
 
@@ -53,4 +51,4 @@ A default-deny incoming firewall policy reduces the network services reachable b
 
 ## 7. Next Step
 
-After verifying the live firewall rules, proceed to Fail2ban setup and validation.
+Fail2ban has been configured. Next, archive actual firewall output as final portfolio evidence.
