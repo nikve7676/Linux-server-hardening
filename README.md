@@ -28,14 +28,15 @@ This project documents my hands-on practice securing an Ubuntu Linux virtual mac
 - [x] Identify Ubuntu version and VM network address; test SSH password connection from macOS.
 - [x] Practice basic file permissions (`chmod 600`).
 - [x] Generate an Ed25519 SSH key pair on macOS.
-- [ ] Verify Mac public key is installed on Ubuntu and test key-only authentication.
-- [ ] Verify SSH password and direct root login are disabled, and confirm remote access still works.
-- [ ] Audit Linux users, sudo permissions and sensitive-file permissions.
-- [ ] Verify UFW rules and successful SSH access after enabling the firewall (user reports UFW stage performed).
+- [x] SSH key-only access tested (user-confirmed; output not archived).
+- [x] SSH authentication restrictions and remote access checked (user-confirmed; effective settings not archived).
+- [ ] Record full user/sudo permission audit (only a permissions practice exercise is documented).
+- [x] UFW firewall and continuing SSH access checked (user-confirmed; rule output not archived).
 - [x] Configure Fail2ban and confirm configuration test passes and SSH jail ban time is 3600 seconds.
-- [ ] Capture full Fail2ban SSH jail status, maxretry/findtime values, and continued SSH access (additional checks reported completed; outputs not reviewed).
+- [x] Fail2ban SSH jail and settings checked (user-confirmed; full output not archived).
 - [x] Check package update availability with `apt update` and `apt list --upgradable` (user-reported; output not yet reviewed).
-- [ ] Resolve/verify APT repository timestamp issue and confirm available upgrades are installed, then complete final audit.
+- [x] Final command checks reported working (user-confirmed; previous APT date error no longer reported).
+- [ ] Archive successful `apt update` / upgrade results and reboot check; verify any pending upgrades were installed.
 
 ## Documentation
 
@@ -48,4 +49,4 @@ This project documents my hands-on practice securing an Ubuntu Linux virtual mac
 
 ## Verification policy
 
-A task is marked complete only when its result has been confirmed. Some commands are documented as planned or user-reported while verification output is still pending. Never commit private SSH keys, passwords or other secrets.
+Checked tasks marked user-confirmed were reported successful by the VM operator, but raw output is not retained. Tasks needing supporting evidence remain open. Never commit private SSH keys, passwords or other secrets.
