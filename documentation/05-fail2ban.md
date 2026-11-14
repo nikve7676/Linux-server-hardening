@@ -27,9 +27,13 @@ Purpose: Refresh package metadata, install Fail2ban, and check its service statu
 
 ## 4. Configuration
 
-Custom configuration file:
+Custom configuration files observed on the VM:
 
-`/etc/fail2ban/jail.local`
+- `/etc/fail2ban/jail.local` (existing)
+- `/etc/fail2ban/jail.d/sshd.local` (edited in the lab)
+- `/etc/fail2ban/jail.d/defaults-debian.conf` (distribution defaults; not modified)
+
+The active SSH jail may be affected by both custom files, so effective values are checked with `fail2ban-client get`.
 
 Configuration used in the lab instructions:
 
@@ -54,7 +58,7 @@ Meaning of the settings:
 | `findtime = 10m` | Ten-minute detection window |
 | `bantime = 1h` | One-hour ban duration |
 
-The settings above reflect the configuration procedure followed. The running configuration still needs to be checked against the actual Ubuntu VM.
+The first observed `sshd.local` content contained `bantime = 1h0`; I later reported correcting it to `1h`. The post-restart active `bantime` value was confirmed as 3600 seconds. Other active values still need captured output.
 
 ## 5. Apply and Check the Configuration
 
@@ -84,13 +88,28 @@ Expected values:
 
 I reported completing the Fail2ban configuration steps.
 
-The actual terminal outputs for the configuration test, service status, SSH jail status and active values have **not yet been captured here**. Therefore, the effectiveness of the jail is not yet marked as verified.
+Actual terminal results from the lab:
 
-- [ ] Confirm `sudo fail2ban-client -t` passes
+```text
+sudo fail2ban-client get sshd bantime
+600
+sudo fail2ban-client -t
+OK: configuration test is successful
+sudo systemctl restart fail2ban
+sudo fail2ban-client get sshd bantime
+3600
+```
+
+This demonstrates a successful syntax test and an applied ban-time change from 10 minutes to one hour. A successful restart command alone does not prove all protections are operating as intended.
+
+I later reported completing the other suggested verification commands, but their outputs have not been shared.
+
+- [x] Confirm `sudo fail2ban-client -t` passes
 - [ ] Confirm Fail2ban service is active
 - [ ] Confirm `sshd` appears in `sudo fail2ban-client status`
 - [ ] Confirm `sudo fail2ban-client status sshd` succeeds
-- [ ] Confirm runtime `maxretry`, `findtime`, `bantime` values
+- [x] Confirm runtime `bantime` is 3600 seconds
+- [ ] Record runtime `maxretry` and `findtime` outputs
 - [ ] Record that SSH access from macOS still works
 
 **Safety:** Do not deliberately make repeated failed login attempts from the Mac, because the Mac's IP could be temporarily banned.
@@ -101,4 +120,4 @@ Fail2ban can slow repeated authentication attacks by enforcing temporary IP bans
 
 ## 8. Next Steps
 
-Verify the live Fail2ban results, then continue with security updates and the final server audit.
+Record remaining runtime values and SSH jail status, then finish the security updates and final server audit.
